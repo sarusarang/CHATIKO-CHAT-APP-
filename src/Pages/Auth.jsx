@@ -31,11 +31,11 @@ function Auth() {
 
 
 
-                <div className='w-50 login p-5'>
+                <div className=' login'>
 
-                    <Row>
+                    <Row className='justify-content-center'>
 
-                        <Col md={6}>
+                        <Col md={6} sm={6}  className='images'>
 
                             {
                                 createstatus ?
@@ -49,12 +49,10 @@ function Auth() {
 
                             }
 
-
-
                         </Col>
 
 
-                        <Col md={6}>
+                        <Col md={6} sm={12}>
 
 
                             {
@@ -79,7 +77,7 @@ function Auth() {
                                         {
                                             !createstatus &&
 
-                                            <FloatingLabel className='mb-3' controlId="user" label="Usernmae">
+                                            <FloatingLabel className='mb-3 lable' controlId="user" label="UserName">
 
                                                 <Form.Control type="email" placeholder="Username" />
 
@@ -89,7 +87,7 @@ function Auth() {
 
 
 
-                                        <FloatingLabel className='mb-3' controlId="user" label="Email">
+                                        <FloatingLabel className='mb-3 lable' controlId="user" label="Email">
 
                                             <Form.Control type="email" placeholder="Email" />
 
@@ -97,7 +95,7 @@ function Auth() {
 
 
 
-                                        <FloatingLabel className='mb-3' controlId="user" label="password">
+                                        <FloatingLabel className='mb-3 lable' controlId="user" label="password">
 
                                             <Form.Control type="password" placeholder="Password" />
 
@@ -112,11 +110,11 @@ function Auth() {
 
                                                 <label for="formFile" class="form-label">Profile Picture</label>
 
-                                                <FloatingLabel className='mb-3' controlId="user" >
+                                               
 
-                                                    <Form.Control type="file" />
+                                                    <Form.Control type="file" className='lable mb-3' />
 
-                                                </FloatingLabel>
+                                                
 
 
                                             </div>
@@ -155,16 +153,10 @@ function Auth() {
 
                         </Col>
 
-
-
-
                     </Row>
 
 
                 </div>
-
-
-
 
             </section>
 
