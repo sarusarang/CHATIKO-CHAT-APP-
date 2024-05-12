@@ -1,0 +1,44 @@
+.chat-main{
+
+    width: 100%;
+}
+
+.profile-edit{
+
+    width: 14%;
+}
+
+.profile-edit img{
+
+    border-radius: 50px;
+    border: none;
+}
+
+.users{
+
+    height: 100vh;
+    background-color: #242424;
+
+}
+
+.chats{
+
+    height: 100vh;
+    background-color: #212121;
+}
+
+.serach-user input{
+
+    width: 98%;
+    padding: 2%;
+    border-radius: 18px;
+
+    
+}
+
+.serach-user{
+
+    display: flex;
+    justify-content: center;
+
+}
