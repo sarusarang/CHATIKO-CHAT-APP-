@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../Components/Navbar'
 import Chat from '../Components/Chat'
 
 function Dashboard() {
@@ -9,14 +8,11 @@ function Dashboard() {
 
 
    <>
-   
-  
+
 
    <Chat/>
 
 
-   
-   
    </>
 
 

@@ -1,44 +1,111 @@
-.chat-main{
+.chat-main {
 
     width: 100%;
 }
 
-.profile-edit{
+.profile-edit {
 
     width: 14%;
 }
 
-.profile-edit img{
+.profile-edit img {
 
     border-radius: 50px;
     border: none;
 }
 
-.users{
+/* USER DISPLAY */
+.users {
 
     height: 100vh;
-    background-color: #242424;
-
+    /* background-color: #242424; */
+    background-image: url('https://i.pinimg.com/736x/64/33/f1/6433f18fc147c09b29c39fe8879a3f11.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.chats{
+
+/* CHAT DISPLAY */
+.chats {
 
     height: 100vh;
-    background-color: #212121;
+    /* background-color: #212121; */
+    background-image: url('https://e0.pxfuel.com/wallpapers/631/72/desktop-wallpaper-black-inspirational-high-quality-all-blacks-2018-64-for-you-left-of-the-hudson-pure-dark.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.serach-user input{
+
+/* SEARCH BAR */
+.serach-user input {
 
     width: 98%;
-    padding: 2%;
-    border-radius: 18px;
+    padding: 0.8rem 0rem 0.8rem 2rem;
+    border: none;
+    border-radius: 22px;
+    outline: none;
+    background-color: transparent;
 
-    
+
 }
 
-.serach-user{
+.serach-user {
 
     display: flex;
     justify-content: center;
+    background-color: aliceblue;
+    border-radius: 30px;
+    padding-left: 1rem;
+    padding-right: 0.8rem;
+
+}
+
+
+
+/* Friends list */
+
+
+.frnd{
+
+    background-color: #0000005d;
+    padding: 0.5rem 0rem 0.5rem 2rem;
+    border-radius: 40px;
+    transition: all ease-in-out 0.4s;
+
+}
+
+.frnd:hover{
+
+    background-color: #000;
+
+}
+
+.frnd h5{
+
+
+    color: aqua !important;
+    font-weight: 900;
+
+}
+
+.frnd-profile {
+
+    width: 18%;
+
+}
+
+.frnd-profile img {
+
+    border: none;
+    border-radius: 100px;
+
+}
+
+.frnd-profile i{
+
+    color: rgb(27, 226, 27);
+    position: absolute;
+    top: 20px;
+    right: 5px;
 
 }
