@@ -1,0 +1,38 @@
+.edit{
+
+    background-color: #141414;
+}
+
+.back-btn{
+
+    background-color: transparent;
+    padding: 3%;
+    font-size: x-large;
+    color: aliceblue;
+}
+
+.back-btn i:hover{
+
+    color: #ccc;
+    cursor: pointer;
+}
+
+.profile-edit{
+
+    display: flex;
+    justify-content: center;
+
+
+}
+
+.pro-img{
+
+    width: 25%;
+
+}
+
+.pro-img img{
+
+    border-radius: 10rem;
+}
+

@@ -3,22 +3,11 @@
     width: 100%;
 }
 
-.profile-edit {
-
-    width: 14%;
-}
-
-.profile-edit img {
-
-    border-radius: 50px;
-    border: none;
-}
 
 /* USER DISPLAY */
 .users {
 
     height: 100vh;
-    /* background-color: #242424; */
     background-image: url('https://i.pinimg.com/736x/64/33/f1/6433f18fc147c09b29c39fe8879a3f11.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -29,10 +18,10 @@
 .chats {
 
     height: 100vh;
-    /* background-color: #212121; */
     background-image: url('https://e0.pxfuel.com/wallpapers/631/72/desktop-wallpaper-black-inspirational-high-quality-all-blacks-2018-64-for-you-left-of-the-hudson-pure-dark.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    padding: 0px 0px 0px 0px !important;
 }
 
 
@@ -65,7 +54,7 @@
 /* Friends list */
 
 
-.frnd{
+.frnd {
 
     background-color: #0000005d;
     padding: 0.5rem 0rem 0.5rem 2rem;
@@ -74,13 +63,13 @@
 
 }
 
-.frnd:hover{
+.frnd:hover {
 
     background-color: #000;
 
 }
 
-.frnd h5{
+.frnd h5 {
 
 
     color: aqua !important;
@@ -91,21 +80,62 @@
 .frnd-profile {
 
     width: 18%;
+    position: relative;
 
 }
 
-.frnd-profile img {
 
-    border: none;
-    border-radius: 100px;
+.frnd-profile p {
+
+    background-color: rgb(18, 18, 18);
+    font-size: 2rem;
+    width: 90%;
+    text-align: center;
+    border-radius: 50px;
+    margin-bottom: 0px !important;
+    cursor: pointer;
+    
 
 }
 
-.frnd-profile i{
+.frnd-profile i {
 
     color: rgb(27, 226, 27);
     position: absolute;
-    top: 20px;
-    right: 5px;
+    top: 15px;
+    right: 9px;
 
+}
+
+
+.chat-scroll {
+
+    overflow-y: auto;
+    max-height: 80%;
+
+}
+
+.add-groups button{
+
+    background-color: transparent;
+    border: none;
+    color: #a4a4a4;
+    font-size: x-large;
+
+
+
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10rem;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #222121c2;
+    border-radius: 6px;
 }
