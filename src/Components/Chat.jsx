@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Chat.css'
 import Editprofile from './Editprofile'
-
+import ChatBox from './ChatBox'
 
 
 function Chat() {
@@ -16,6 +16,14 @@ function Chat() {
 
     // STATE FOR STATUS OF  PROFILE EDIT
     const [editpro, seteditpro] = useState(false)
+
+    // STATE FOR STATUS OF CHAT
+    const [chatstatus, setchatstatus] = useState(false)
+
+    // STATE FOR STATUS OF DEFAULT CHAT
+    const [defaultchat, setdefaultchat] = useState(true)
+
+
 
 
 
@@ -40,7 +48,7 @@ function Chat() {
                             {/* User Profile */}
                             <div className='d-flex justify-content-between align-items-center w-100'>
 
-                                <div className='frnd-profile'>
+                                <div className='frnd-profile' onClick={() => { seteditpro(true),setchatstatus(false),setdefaultchat(false) }}>
 
                                     <p>S</p>
 
@@ -77,7 +85,7 @@ function Chat() {
 
 
 
-                                            <div className='w-100 mt-3 d-flex align-items-center frnd'>
+                                            <div className='w-100 mt-3 d-flex align-items-center frnd' onClick={() => { setchatstatus(true) , setdefaultchat(false),seteditpro(false) }}>
 
                                                 <div className='frnd-profile position-relative'>
 
@@ -118,15 +126,45 @@ function Chat() {
                         <div className='col-md-9 chats'>
 
 
-                            {/* Default Chat */}
-                            {/* <div className='w-100 d-flex justify-content-center align-items-center h-100'>
 
-                                <img src="/Add_a_heading__1_-removebg-preview.png" className='img-fluid' alt="" />
+                            {/* DEFAULT CHAT */}
+                            {
 
-                            </div> */}
+                                defaultchat &&
 
-                            {/* profle edit */}
-                            <Editprofile />
+
+                                <div className='w-100 d-flex justify-content-center align-items-center h-100'>
+
+                                    <img src="/Add_a_heading__1_-removebg-preview.png" className='img-fluid' alt="" />
+
+                                </div>
+
+                            }
+
+
+                            {/* CHAT BOX */}
+                            {
+
+                                chatstatus &&
+
+
+                                <ChatBox chatdefault={setdefaultchat} chatstatus={setchatstatus}/>
+
+
+                            }
+
+
+                            {/* EDIT PROFILE */}
+                            {
+
+                                editpro &&
+
+
+                                < Editprofile editpro={seteditpro} chatdefault= {setdefaultchat} />
+
+
+                            }
+
 
 
                         </div>

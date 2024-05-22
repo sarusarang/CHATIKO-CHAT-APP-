@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap'
 
 
 
-function Editprofile() {
+function Editprofile({editpro,chatdefault}) {
 
 
 
@@ -22,7 +22,7 @@ function Editprofile() {
 
                 <div className='w-100 back-btn'>
 
-                    <i class="fa-solid fa-arrow-left fa-xl"></i>
+                    <i class="fa-solid fa-arrow-left fa-xl" onClick={()=>{editpro(false),chatdefault(true)}}></i>
 
 
                     {/* PROFILE EDIT */}
