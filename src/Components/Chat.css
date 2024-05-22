@@ -139,3 +139,38 @@
     background-color: #222121c2;
     border-radius: 6px;
 }
+
+
+/* Responsive */
+
+@media only screen and (min-width: 991px) and (max-width: 1200px) {
+
+    .users{
+
+        width:30% !important;
+    }
+
+    .chats{
+
+        width: 70% !important;
+    }
+
+
+}
+
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    .users{
+
+        width:40% !important;
+    }
+
+    .chats{
+
+        width: 60% !important;
+    }
+
+
+}
