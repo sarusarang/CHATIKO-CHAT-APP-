@@ -1,7 +1,6 @@
 import React from 'react'
 import './Profile.css'
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
+import { Button } from 'react-bootstrap'
 
 
 
@@ -26,10 +25,12 @@ function Editprofile() {
                     <i class="fa-solid fa-arrow-left fa-xl"></i>
 
 
-                    <div className='profile-edit w-100'>
+                    {/* PROFILE EDIT */}
+
+                    <div className='profile-edit w-100 mt-5'>
 
 
-                        <form className='d-flex flex-column justify-content-center align-items-center'>
+                        <form className='d-flex flex-column justify-content-center align-items-center pro-bg'>
 
 
                             <label className='pro-img'>
@@ -40,18 +41,32 @@ function Editprofile() {
 
                             </label>
 
+                            <h5 className='text-white mt-2'>Edit Profile Picture</h5>
 
-                          
+
+                            <div className=" mt-2 eidt-name">
+
+                                <i className="fa-solid fa-pen ms-3"></i>
+
+                                <input type="text" placeholder='Edit your name' />
+
+                            </div>
+
+                            <Button type='submit' className='btn-save mt-2'>SAVE</Button>
+
+                            <Button  className='btn-save mt-2'> LOG OUT <i class="fa-solid fa-right-from-bracket"></i>  </Button>
 
 
                         </form>
+
+                        
+
 
 
                     </div>
 
 
                 </div>
-
 
             </section>
 
