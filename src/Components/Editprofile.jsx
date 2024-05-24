@@ -1,12 +1,23 @@
 import React from 'react'
 import './Profile.css'
 import { Button } from 'react-bootstrap'
-
+import { useNavigate } from 'react-router-dom'
 
 
 
 
 function Editprofile({editpro,chatdefault}) {
+
+    const navigate = useNavigate()
+
+
+    const logout = ()=>{
+
+        sessionStorage.removeItem("token")
+        sessionStorage.removeItem("username")
+        navigate('/')
+
+    }
 
 
 
@@ -54,7 +65,7 @@ function Editprofile({editpro,chatdefault}) {
 
                             <Button type='submit' className='btn-save mt-2'>SAVE</Button>
 
-                            <Button  className='btn-save mt-2'> LOG OUT <i class="fa-solid fa-right-from-bracket"></i>  </Button>
+                            <Button  className='btn-save mt-2' onClick={logout}> LOG OUT <i class="fa-solid fa-right-from-bracket"></i>  </Button>
 
 
                         </form>

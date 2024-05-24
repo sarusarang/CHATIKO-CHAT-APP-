@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { Toaster, toast } from 'sonner';
 import { userResgister } from '../Services/AllApi';
 import { useNavigate } from 'react-router-dom';
+import { userlogin } from '../Services/AllApi';
 
 
 
@@ -56,6 +57,44 @@ function Auth() {
 
     }, [data.image])
 
+
+    // Handlelogin
+    const login = async () => {
+
+        const {email,password} = data
+
+        if(!password || !email){
+
+            toast.warning("INVALID INPUT...!PLEASE ENTER VAILD INPUT")
+        }
+        else{
+
+            const result = await userlogin({email,password})
+
+            if(result.status==200){
+
+              
+                sessionStorage.setItem("token",result.data.token)
+                sessionStorage.setItem("username",result.data.user)
+                toast.success("LOGIN SUCCESS...!")
+
+                setTimeout(() => {
+                    
+                    navigate('/dash')
+
+                }, 1000);
+
+
+            }
+            else{
+
+                toast.warning(result.response.data)
+
+            }
+
+        }
+
+    }
 
 
     // Handel CreateAccount
@@ -277,7 +316,7 @@ function Auth() {
                                         {
                                             createstatus ?
 
-                                                <Button type='submit' className='login-btn w-100 mb-2'>Login</Button>
+                                                <Button type='submit' onClick={login} className='login-btn w-100 mb-2'>Login</Button>
 
                                                 :
 
