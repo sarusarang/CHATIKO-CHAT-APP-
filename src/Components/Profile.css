@@ -45,6 +45,7 @@
     padding: 5%;
     border-radius: 22px;
     box-shadow: 0 0 50px 15px #000000;
+    width: 70%;
 }
 
 .eidt-name {
@@ -93,6 +94,36 @@
 
 /* Responsive */
 
+@media only screen and (min-width: 991px) and (max-width: 1200px) {
+
+
+
+    .btn-save {
+
+        width: 70%;
+    }
+
+    .eidt-name {
+
+        width: 70%;
+    }
+
+    .edit {
+
+        background-color: #000000;
+
+    }
+
+    .pro-bg {
+
+        width: 100%;
+    }
+
+
+
+
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 
 
@@ -112,6 +143,38 @@
 
     }
 
+    .pro-bg {
+
+        width: 100%;
+    }
+
+
+}
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+
+    .pro-bg {
+
+        width: 100%;
+    }
+
+
+    .btn-save {
+
+        width: 70%;
+    }
+
+    .eidt-name {
+
+        width: 70%;
+    }
+
+    .edit {
+
+        background-color: #000000;
+
+    }
+ 
 
 }
 
@@ -133,6 +196,12 @@
 
         background-color: #000000;
 
+    }
+
+    .pro-bg {
+
+
+        width: 100%;
     }
 
 
@@ -163,7 +232,13 @@
     .pro-img {
 
         width: 40%;
-    
+
+    }
+
+
+    .pro-bg {
+
+        width: 100%;
     }
 
 }

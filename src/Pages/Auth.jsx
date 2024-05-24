@@ -135,7 +135,7 @@ function Auth() {
 
                     setTimeout(() => {
 
-                        navigate('/dash')
+                       setcreatestatus(true)
 
                     }, 1000);
                 }

@@ -1,24 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Profile.css'
 import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import { getUser } from '../Services/AllApi'
+import { Base_url } from '../Services/AllApi'
+
+function Editprofile({ editpro, chatdefault }) {
 
 
+    const [userdata, setuserdata] = useState({})
+
+    // to get the token form sessionStorage
+    const token = sessionStorage.getItem("token")
 
 
-function Editprofile({editpro,chatdefault}) {
+    // to get the userdata when it mounts
+    useEffect(() => {
+
+
+        const auth = {
+
+            "Authorization": `Bearer ${token}`
+
+        }
+
+        const getuserdata = async () => {
+
+            const res = await getUser(auth)
+
+            setuserdata(res.data)
+
+        }
+
+        getuserdata()
+
+    }, [])
 
     const navigate = useNavigate()
 
 
-    const logout = ()=>{
+    // Logout 
+    const logout = () => {
 
         sessionStorage.removeItem("token")
         sessionStorage.removeItem("username")
         navigate('/')
 
     }
-
 
 
     return (
@@ -33,12 +61,12 @@ function Editprofile({editpro,chatdefault}) {
 
                 <div className='w-100 back-btn'>
 
-                    <i class="fa-solid fa-arrow-left fa-xl" onClick={()=>{editpro(false),chatdefault(true)}}></i>
+                    <i class="fa-solid fa-arrow-left fa-xl" onClick={() => { editpro(false), chatdefault(true) }}></i>
 
 
                     {/* PROFILE EDIT */}
 
-                    <div className='profile-edit w-100 mt-5'>
+                    <div className='profile-edit w-100 mt-4'>
 
 
                         <form className='d-flex flex-column justify-content-center align-items-center pro-bg'>
@@ -48,7 +76,7 @@ function Editprofile({editpro,chatdefault}) {
 
                                 <input type="file" style={{ display: 'none' }} />
 
-                                <img src="/Defualt-profile.jpg" className='img-fluid' alt="profileimage" />
+                                <img src={userdata.image? `${Base_url}/uploads/${userdata.image}`:"/Defualt-profile.jpg"} className='img-fluid' alt="profileimage" />
 
                             </label>
 
@@ -59,18 +87,18 @@ function Editprofile({editpro,chatdefault}) {
 
                                 <i className="fa-solid fa-pen ms-3"></i>
 
-                                <input type="text" placeholder='Edit your name' />
+                                <input type="text" value={userdata.username}   placeholder='Edit your name' />
 
                             </div>
 
                             <Button type='submit' className='btn-save mt-2'>SAVE</Button>
 
-                            <Button  className='btn-save mt-2' onClick={logout}> LOG OUT <i class="fa-solid fa-right-from-bracket"></i>  </Button>
+                            <Button className='btn-save mt-2' onClick={logout}> LOG OUT <i class="fa-solid fa-right-from-bracket"></i>  </Button>
 
 
                         </form>
 
-                        
+
 
 
 

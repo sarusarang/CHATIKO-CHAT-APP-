@@ -1,8 +1,10 @@
 import { CommponApi } from "./CommonApi";
 
-const Base_url = "http://localhost:3000" 
+ export const Base_url = "http://localhost:3000"
 
 
+
+// UserRegister
 export const userResgister = async(data,headers)=>{
 
 
@@ -10,9 +12,19 @@ export const userResgister = async(data,headers)=>{
 
 }
 
+
+
+// userLogin
 export const userlogin = async (data)=>{
 
     return await CommponApi('POST',`${Base_url}/login`,data,"")
     
+
+}
+
+//getUser
+export const getUser = async(header)=>{
+
+    return await CommponApi('GET',`${Base_url}/getuser`,"",header)
 
 }
