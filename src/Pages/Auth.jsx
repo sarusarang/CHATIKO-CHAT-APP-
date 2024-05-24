@@ -5,12 +5,14 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Toaster, toast } from 'sonner';
 import { userResgister } from '../Services/AllApi';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 function Auth() {
 
+    const navigate = useNavigate()
 
     // STATE TO CHECK IF IT IS LOGIN OR CREATE AC
     const [createstatus, setcreatestatus] = useState(true)
@@ -91,6 +93,12 @@ function Auth() {
                 if (result.status == 200) {
 
                     toast.success("Account Created Successfully")
+
+                    setTimeout(() => {
+
+                        navigate('/dash')
+
+                    }, 1000);
                 }
                 else {
 
@@ -114,6 +122,12 @@ function Auth() {
                 if (result.status == 200) {
 
                     toast.success("Account Created Successfully")
+
+                    setTimeout(() => {
+
+                        navigate('/dash')
+
+                    }, 1000);
                 }
                 else {
 
