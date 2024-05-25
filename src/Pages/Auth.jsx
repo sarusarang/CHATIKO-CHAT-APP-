@@ -19,7 +19,7 @@ function Auth() {
     const [createstatus, setcreatestatus] = useState(true)
 
 
-
+    
     // GET DATA FROM THE INPUT FEILD
     const [data, setdata] = useState({
 
@@ -30,6 +30,8 @@ function Auth() {
 
     // TO GET THE PREVIEW OF THE PROFILE PICTURE
     const [preview, setpreview] = useState("")
+
+    const [status,setstatus]=useState(false)
 
 
 
@@ -61,38 +63,51 @@ function Auth() {
     // Handlelogin
     const login = async () => {
 
-        const {email,password} = data
+        try {
 
-        if(!password || !email){
 
-            toast.warning("INVALID INPUT...!PLEASE ENTER VAILD INPUT")
-        }
-        else{
+            const { email, password } = data
 
-            const result = await userlogin({email,password})
+            if (!password || !email) {
 
-            if(result.status==200){
+                toast.warning("INVALID INPUT...!PLEASE ENTER VAILD INPUT")
+            }
+            else {
 
-              
-                sessionStorage.setItem("token",result.data.token)
-                sessionStorage.setItem("username",result.data.user)
-                toast.success("LOGIN SUCCESS...!")
+                const result = await userlogin({ email, password })
 
-                setTimeout(() => {
-                    
-                    navigate('/dash')
+                if (result.status == 200) {
 
-                }, 1000);
 
+                    sessionStorage.setItem("token", result.data.token)
+                    sessionStorage.setItem("username", result.data.user)
+                    toast.success("LOGIN SUCCESS...!")
+
+                    setTimeout(() => {
+
+                        navigate('/dash')
+
+                    }, 1000);
+
+
+                }
+                else {
+
+                    toast.warning(result.response.data)
+
+                }
 
             }
-            else{
 
-                toast.warning(result.response.data)
-
-            }
 
         }
+
+        catch (err) {
+
+            toast.error("Failed to connect SERVER")
+
+        }
+
 
     }
 
@@ -100,82 +115,95 @@ function Auth() {
     // Handel CreateAccount
     const submit = async () => {
 
-        const { username, email, password, image } = data
+        
+        try {
 
-        if (!username || !email || !password) {
+            const { username, email, password, image } = data
 
-            toast.warning("Invaild Inputs..! Enter Vaild Input")
+            if (!username || !email || !password) {
 
-        }
-        else {
-
-
-            const formdata = new FormData()
-
-            formdata.append('username', username)
-            formdata.append('email', email)
-            formdata.append('password', password)
-            preview ? formdata.append('image', image) : formdata.append('image', data.image)
-
-
-            if (preview) {
-
-                const reqheader = {
-
-                    "Content-Type": "multipart/form-data"
-
-                }
-
-                const result = await userResgister(formdata, reqheader)
-
-
-                if (result.status == 200) {
-
-                    toast.success("Account Created Successfully")
-
-                    setTimeout(() => {
-
-                       setcreatestatus(true)
-
-                    }, 1000);
-                }
-                else {
-
-                    toast.warning(result.response.data)
-                }
+                toast.warning("Invaild Inputs..! Enter Vaild Input")
 
             }
-
             else {
 
 
-                const reqheader = {
+                const formdata = new FormData()
 
-                    "Content-Type": "application/json"
+                formdata.append('username', username)
+                formdata.append('email', email)
+                formdata.append('password', password)
+                preview ? formdata.append('image', image) : formdata.append('image', data.image)
+
+
+                if (preview) {
+
+                    const reqheader = {
+
+                        "Content-Type": "multipart/form-data"
+
+                    }
+
+                    const result = await userResgister(formdata, reqheader)
+
+
+                    if (result.status == 200) {
+
+                        toast.success("Account Created Successfully")
+
+                        setTimeout(() => {
+
+                            setcreatestatus(true)
+
+                        }, 1000);
+                    }
+                    else {
+
+                        toast.warning(result.response.data)
+                    }
 
                 }
 
-                const result = await userResgister(formdata, reqheader)
-
-
-                if (result.status == 200) {
-
-                    toast.success("Account Created Successfully")
-
-                    setTimeout(() => {
-
-                        navigate('/dash')
-
-                    }, 1000);
-                }
                 else {
 
-                    toast.warning(result.response.data)
+
+                    const reqheader = {
+
+                        "Content-Type": "application/json"
+
+                    }
+
+                    const result = await userResgister(formdata, reqheader)
+
+
+                    if (result.status == 200) {
+
+                        toast.success("Account Created Successfully")
+
+                        setTimeout(() => {
+
+                            setcreatestatus(true)
+
+                        }, 1000);
+                    }
+                    else {
+
+                        toast.warning(result.response.data)
+                    }
+
                 }
 
             }
 
         }
+
+        catch (err) {
+
+            toast.error("FAILED TO CONNECT SERVER")
+
+        }
+
+
 
     }
 
@@ -224,13 +252,11 @@ function Auth() {
                                     <img src={preview ? preview : "/Defualt-profile.jpg"} className='img-fluid profile-img' alt="image" />
 
 
-
-
                             }
 
                             {
 
-                                !createstatus && imagestatus &&
+                                !createstatus && imagestatus && status &&
 
                                 <p className='text-danger text-center'>Invaild Image Format</p>
 
@@ -299,7 +325,7 @@ function Auth() {
 
 
 
-                                                <Form.Control type="file" onChange={(e) => { setdata({ ...data, image: e.target.files[0] }) }} className='lable mb-3' />
+                                                <Form.Control type="file" onChange={(e) => { setdata({ ...data, image: e.target.files[0] }),setstatus(true) }} className='lable mb-3' />
 
 
 

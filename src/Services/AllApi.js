@@ -28,3 +28,13 @@ export const getUser = async(header)=>{
     return await CommponApi('GET',`${Base_url}/getuser`,"",header)
 
 }
+
+//EDIT USERDATA
+export const edituser = async (data,header)=>{
+
+    
+    console.log(header);
+
+    return await CommponApi('PUT',`${Base_url}/edituser`,data,header)
+
+}
