@@ -1,0 +1,158 @@
+.othermessage {
+
+    width: 100%;
+    display: flex;
+    justify-content: start;
+
+}
+
+.usermessages {
+
+    width: 100%;
+    display: flex;
+    justify-content: end;
+
+}
+
+.bg {
+
+    background-color: rgb(13 240 56 / 10%) !important;
+}
+
+.frnd-mesg {
+
+    background-color: #00000045;
+    border-radius: 18px;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    max-width: 30%;
+
+}
+
+.frnd-mesg h5 {
+
+    font-size: large;
+    font-weight: 700;
+    color: #ccc;
+}
+
+.mesg {
+
+    color: #ffffff;
+}
+
+
+/* Responsive */
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+
+
+    .frnd-mesg {
+
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        max-width: 45%;
+
+    }
+
+
+    .frnd-mesg h5 {
+
+        font-size: medium;
+        font-weight: 700;
+
+    }
+
+    .mesg {
+
+        font-size: small;
+    }
+
+
+}
+
+
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+
+
+
+    .frnd-mesg {
+
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        max-width: 45%;
+
+    }
+
+
+    .frnd-mesg h5 {
+
+        font-size: medium;
+        font-weight: 700;
+
+    }
+
+    .mesg {
+
+        font-size: smaller;
+    }
+
+
+}
+
+
+@media only screen and (min-width: 481px) and (max-width: 600px) {
+
+
+
+    .frnd-mesg {
+
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        max-width: 45%;
+
+    }
+
+
+    .frnd-mesg h5 {
+
+        font-size: medium;
+        font-weight: 700;
+
+    }
+
+    .mesg {
+
+        font-size: smaller;
+    }
+
+
+}
+
+
+
+@media only screen and (max-width: 481px) {
+
+
+
+    .frnd-mesg {
+
+        padding: 0.5rem 0rem 0.5rem 1rem;
+        max-width: 45%;
+
+    }
+
+
+    .frnd-mesg h5 {
+
+        font-size: smaller;
+        font-weight: 700;
+
+    }
+
+    .mesg {
+
+        font-size: smaller;
+    }
+
+
+}

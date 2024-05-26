@@ -1,0 +1,141 @@
+.chat-box {
+
+    background-color: rgb(34, 33, 33);
+    background-image: url('https://wallpapercave.com/wp/eTgd2o2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+}
+
+.chat-area2{
+
+    position: absolute;
+    bottom: 0;
+}
+
+
+.chat-header {
+
+    width: 100%;
+    background-color: #14141400;
+    padding: 0.5rem 1.5rem 0.5rem 1rem ;
+}
+
+.chat-header i {
+
+    font-size: x-large;
+}
+
+.userporifle {
+
+    width: 18%;
+    
+
+}
+
+.userporifle p {
+
+    background-color: rgb(18, 18, 18);
+    font-size: 2rem;
+    width: 90%;
+    text-align: center;
+    border-radius: 50px;
+    margin-bottom: 0px !important;
+    padding: 0rem 2rem 0rem 1rem;
+
+
+}
+
+.username h5{
+
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0px;
+
+}
+
+.chat-dele button{
+
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: red;
+    text-align: center;
+   
+
+}
+
+.chat-area{
+
+    overflow-y: auto;
+    max-height: 80%;
+}
+
+.chat-area::-webkit-scrollbar{
+
+    display: none;
+}
+
+
+.chat-input{
+
+    background-color: #141414;
+    border-radius: 18px;
+    padding: 1%;
+    padding-left: 3%;
+}
+
+.chat-input input{
+
+    width: 95%;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.chat-input button{
+
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: larger;
+    color: #ccc;
+}
+
+
+/* Responsive */
+
+@media only screen and (max-width: 481px) {
+
+
+    .chat-input{
+
+        padding: 0.4rem 0rem 0.4rem 1rem;
+    }
+
+    .chat-input input{
+
+        width: 90%;
+        
+    }
+
+    .chat-input button{
+
+      
+        font-size: medium;
+      
+    }
+
+    .username h5{
+
+        font-weight: 500;
+        font-size: medium;
+        margin-bottom: 0px;
+    
+    }
+    
+
+
+}

@@ -95,7 +95,6 @@
     margin-bottom: 0px !important;
     cursor: pointer;
     
-
 }
 
 .frnd-profile i {
@@ -113,6 +112,11 @@
     overflow-y: auto;
     max-height: 80%;
 
+}
+
+.chat-scroll::-webkit-scrollbar{
+
+    display: none;
 }
 
 .add-groups button{

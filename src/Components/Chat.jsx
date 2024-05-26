@@ -26,6 +26,7 @@ function Chat() {
 
 
 
+    
 
 
     return (
@@ -35,7 +36,12 @@ function Chat() {
 
             <section className='chat-main'>
 
+
+
                 <div className='container-fluid'>
+
+
+                    
 
                     <div className='row'>
 
@@ -84,7 +90,6 @@ function Chat() {
                                         data.map(item => (
 
 
-
                                             <div className='w-100 mt-3 d-flex align-items-center frnd' onClick={() => { setchatstatus(true) , setdefaultchat(false),seteditpro(false) }}>
 
                                                 <div className='frnd-profile position-relative'>
@@ -100,12 +105,7 @@ function Chat() {
 
                                             </div>
 
-
-
-
                                         ))
-
-
 
                                         :
 
@@ -148,7 +148,7 @@ function Chat() {
                                 chatstatus &&
 
 
-                                <ChatBox chatdefault={setdefaultchat} chatstatus={setchatstatus}/>
+                                <ChatBox/>
 
 
                             }
@@ -170,7 +170,6 @@ function Chat() {
                         </div>
 
 
-
                     </div>
 
                 </div>
@@ -182,13 +181,7 @@ function Chat() {
         </>
 
 
-
-
-
-
     )
-
-
 
 
 }
