@@ -8,6 +8,11 @@
 
 }
 
+.back{
+
+    cursor: pointer;
+}
+
 .chat-area2{
 
     position: absolute;
@@ -29,9 +34,16 @@
 
 .userporifle {
 
-    width: 18%;
+    width: 10%;
+   
     
 
+}
+
+.userporifle img{
+
+    border-radius: 100px;
+   
 }
 
 .userporifle p {

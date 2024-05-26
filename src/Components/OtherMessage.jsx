@@ -11,7 +11,6 @@ function OtherMessage() {
 
         <>
 
-
             <section className='othermessage mt-5'>
 
 

@@ -2,16 +2,20 @@ import React from 'react'
 import './Chatbox.css'
 import UserMessage from './UserMessage'
 import OtherMessage from './OtherMessage'
+import { Base_url } from '../Services/AllApi'
 
 
 
-function ChatBox() {
+function ChatBox({chatdefault,chatstatus,mobview,chatdata}) {
 
 
-
+    console.log(chatdata)
 
 
     return (
+
+
+        
 
         <>
 
@@ -25,13 +29,23 @@ function ChatBox() {
                 <div className='chat-header d-flex justify-content-between align-items-center'>
 
 
-                    <div className='d-flex justify-content-around align-items-center'>
+                    <div className='d-flex  align-items-center'>
 
+                        <i class="fa-solid fa-arrow-left fa-xl me-4 back" onClick={() => { chatdefault(true),chatstatus(false),mobview(true) }}></i>
 
                         {/* User profile */}
                         <div className='userporifle'>
 
-                            <p>S</p>
+                            {
+                                chatdata.image?
+
+                                <img src={`${Base_url}/uploads/${chatdata.image}`} className='img-fluid' alt="" />
+
+                                :
+
+                              <img src="/Defualt-profile.jpg" className='img-fluid' alt="" />
+                            }
+                          
 
                         </div>
 
@@ -41,9 +55,9 @@ function ChatBox() {
                         <div className='ms-2 mt-2 username'>
 
 
-                            <h5>SARANG A </h5>
+                            <h5>{chatdata.username}</h5>
 
-                            <p>online</p>
+                            <p className='text-success'>Online</p>
 
 
                         </div>

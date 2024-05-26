@@ -60,6 +60,7 @@
     padding: 0.5rem 0rem 0.5rem 2rem;
     border-radius: 40px;
     transition: all ease-in-out 0.4s;
+    cursor: pointer;
 
 }
 
@@ -94,7 +95,7 @@
     border-radius: 50px;
     margin-bottom: 0px !important;
     cursor: pointer;
-    
+
 }
 
 .frnd-profile i {
@@ -106,6 +107,13 @@
 
 }
 
+.frnd-profile img {
+
+    border-radius: 50px;
+    cursor: pointer;
+    border: 1px solid #000000;
+}
+
 
 .chat-scroll {
 
@@ -114,12 +122,12 @@
 
 }
 
-.chat-scroll::-webkit-scrollbar{
+.chat-scroll::-webkit-scrollbar {
 
     display: none;
 }
 
-.add-groups button{
+.add-groups button {
 
     background-color: transparent;
     border: none;
@@ -145,16 +153,18 @@
 }
 
 
+
+
 /* Responsive */
 
 @media only screen and (min-width: 991px) and (max-width: 1200px) {
 
-    .users{
+    .users {
 
-        width:30% !important;
+        width: 30% !important;
     }
 
-    .chats{
+    .chats {
 
         width: 70% !important;
     }
@@ -166,15 +176,38 @@
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 
-    .users{
+    .users {
 
-        width:40% !important;
+        width: 40% !important;
     }
 
-    .chats{
+    .chats {
 
         width: 60% !important;
     }
 
+
+}
+
+@media only screen and (max-width: 768px) {
+
+    .chat-main {
+
+        position: relative;
+    }
+
+    .chats {
+
+        position: absolute;
+        top: 0;
+    }
+
+
+
+    .chatdisplay1 {
+
+        display: none;
+    
+    }
 
 }

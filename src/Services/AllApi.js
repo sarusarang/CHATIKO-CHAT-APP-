@@ -32,9 +32,15 @@ export const getUser = async(header)=>{
 //EDIT USERDATA
 export const edituser = async (data,header)=>{
 
-    
-    console.log(header);
-
     return await CommponApi('PUT',`${Base_url}/edituser`,data,header)
+
+}
+
+
+//GetAllusers
+export const getallusers = async (header)=>{
+
+    return await CommponApi ("GET",`${Base_url}/getallusers`,"",header)
+    
 
 }

@@ -8,7 +8,7 @@ import { toast } from 'sonner'
 import { edituser } from '../Services/AllApi'
 
 
-function Editprofile({ editpro, chatdefault }) {
+function Editprofile({ editpro, chatdefault,mobview }) {
 
 
     const [userdata, setuserdata] = useState({})
@@ -180,9 +180,7 @@ function Editprofile({ editpro, chatdefault }) {
 
     }
 
-
-
-
+    
 
     return (
 
@@ -196,7 +194,7 @@ function Editprofile({ editpro, chatdefault }) {
 
                 <div className='w-100 back-btn'>
 
-                    <i class="fa-solid fa-arrow-left fa-xl" onClick={() => { editpro(false), chatdefault(true) }}></i>
+                    <i class="fa-solid fa-arrow-left fa-xl" onClick={() => { editpro(false), chatdefault(true),mobview(true) }}></i>
 
 
                     {/* PROFILE EDIT */}
