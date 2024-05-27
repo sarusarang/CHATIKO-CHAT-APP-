@@ -234,7 +234,7 @@ function Chat() {
 
 
 
-                                                        <i class="fa-solid fa-circle fa-2xs "></i>
+                                                        {/* <i class="fa-solid fa-circle fa-2xs "></i> */}
 
                                                     </div>
 
@@ -289,7 +289,7 @@ function Chat() {
 
 
 
-                                                        <i class="fa-solid fa-circle fa-2xs "></i>
+                                                        {/* <i class="fa-solid fa-circle fa-2xs "></i> */}
 
                                                     </div>
 

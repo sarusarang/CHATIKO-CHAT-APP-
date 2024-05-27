@@ -44,3 +44,19 @@ export const getallusers = async (header)=>{
     
 
 }
+
+// SEND CHAT
+export const sendchat = async(data,headers)=>{
+
+    return await CommponApi ("POST",`${Base_url}/sendchat`,data,headers)
+
+}
+
+// Getchats
+export const getchats = async(id,headers)=>{
+
+    
+
+    return await CommponApi ("GET",`${Base_url}/getchats/${id}`,"",headers)
+
+}

@@ -3,9 +3,17 @@ import './Messages.css'
 
 
 
-function OtherMessage() {
+function OtherMessage({item,time}) {
 
 
+    const date =  new Date(time)
+
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+   
+
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    
 
     return (
 
@@ -20,12 +28,12 @@ function OtherMessage() {
 
                     {/* <h5>SARANG</h5> */}
 
-                    <p className='mesg'>Hi there how are you man hope you are fine </p>
+                    <p className='mesg'>{item}</p>
 
 
                     <div className='d-flex justify-content-end'>
 
-                        <p className='mb-0 text-white mesg'>12:50</p>
+                        <p className='mb-0 text-white mesg'>{formattedTime}</p>
 
                     </div>
 

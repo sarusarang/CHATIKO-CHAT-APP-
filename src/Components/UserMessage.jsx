@@ -3,15 +3,24 @@ import './Messages.css'
 
 
 
-function UserMessage() {
+function UserMessage({item,time}) {
 
+
+  
+  const date =  new Date(time)
+
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+ 
+
+  const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 
 
   return (
 
     <>
 
-      <section className='usermessages'>
+      <section className='usermessages mt-2'>
 
 
 
@@ -20,13 +29,13 @@ function UserMessage() {
 
          
 
-          <p className='mesg'>Hi there how are you man hope you are fine </p>
+          <p className='mesg'>{item}</p>
 
 
 
           <div className='d-flex justify-content-end'>
 
-            <p className='mb-0 mesg'>12:50</p>
+            <p className='mb-0 mesg'>{formattedTime}</p>
 
           </div>
 
