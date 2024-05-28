@@ -6,10 +6,17 @@ import { getUser } from '../Services/AllApi'
 import { Base_url } from '../Services/AllApi'
 import { getallusers } from '../Services/AllApi'
 import { toast } from 'sonner'
+import { useDispatch } from 'react-redux'
+import { ClickedUser } from '../../REDUX STORE/User'
+import { useSelector } from 'react-redux'
 
 
 function Chat() {
 
+    const { OnlineUsers, Profile } = useSelector((state) => state.users)
+
+
+    const dispatch = useDispatch()
 
     const token = sessionStorage.getItem("token")
 
@@ -26,7 +33,7 @@ function Chat() {
     const [Searchresults, setsearchResults] = useState([])
 
     // CHATDATA DATA OF THE OTHER PERSON
-    const [chatdata,setchatdata]=useState({})
+    const [chatdata, setchatdata] = useState({})
 
 
     // const mob-view status
@@ -49,7 +56,7 @@ function Chat() {
         window.addEventListener('resize', checkscreensize)
 
 
-    }, [])
+    },[])
 
 
     // TO GET USER DATA
@@ -97,7 +104,7 @@ function Chat() {
 
         }
 
-    }, [])
+    }, [Profile])
 
 
     // SEARCH 
@@ -116,16 +123,18 @@ function Chat() {
 
 
     // CHAT BOX WHEN USER CLICKS
-    const userchat = (image,username,_id) => {
+    const userchat = (image, username, _id) => {
 
-        const user = {image,username,_id}
+        const user = { image, username, _id }
+
+        dispatch(ClickedUser(username))
 
         setchatstatus(true)
         setdefaultchat(false)
         seteditpro(false)
         setmobview(false)
         setchatdata(user)
-        
+
     }
 
     // STATE FOR STATUS OF  PROFILE EDIT
@@ -138,7 +147,7 @@ function Chat() {
     const [defaultchat, setdefaultchat] = useState(true)
 
 
-    
+
 
     return (
 
@@ -179,11 +188,11 @@ function Chat() {
                                 </div>
 
 
-                                <div className='add-groups'>
+                                {/* <div className='add-groups'>
 
                                     <button><i class="fa-solid fa-user-group"></i> <i class="fa-solid fa-plus fa-2xs"></i></button>
 
-                                </div>
+                                </div> */}
 
 
                             </div>
@@ -216,9 +225,9 @@ function Chat() {
                                             Searchresults.map(item => (
 
 
-                                                <div className='w-100 mt-3 d-flex align-items-center frnd' onClick={() => { userchat(item.image,item.username,item._id) }}>
+                                                <div className='w-100 mt-3 d-flex align-items-center frnd' onClick={() => { userchat(item.image, item.username, item._id) }}>
 
-                                                    <div className='frnd-profile position-relative'>
+                                                    <div className='frnd-profile'>
 
                                                         {
 
@@ -228,17 +237,23 @@ function Chat() {
 
                                                                 :
 
-                                                                <p>{item.username[0]}</p>
+                                                                <img src="/Defualt-profile.jpg" className='img-fluid' alt="logo" />
+
 
                                                         }
 
 
+                                                    </div>
 
-                                                        {/* <i class="fa-solid fa-circle fa-2xs "></i> */}
+
+                                                    <div className='online-offline'>
+
+                                                        <h5 className=' mt-3 ms-3 mb-0'>{item.username}</h5>
+
+                                                        <p className={OnlineUsers.includes(item._id) ? "text-success" : "text-danger"}>{OnlineUsers.includes(item._id) ? "Online" : "Offline"}</p>
 
                                                     </div>
 
-                                                    <h5 className=' mt-3 ms-3'>{item.username}</h5>
 
                                                 </div>
 
@@ -271,7 +286,7 @@ function Chat() {
                                             alluser.map(item => (
 
 
-                                                <div className='w-100 mt-3 d-flex align-items-center frnd' onClick={() => {userchat(item.image,item.username,item._id)}}>
+                                                <div className='w-100 mt-3 d-flex align-items-center frnd' onClick={() => { userchat(item.image, item.username, item._id) }}>
 
                                                     <div className='frnd-profile position-relative'>
 
@@ -293,8 +308,17 @@ function Chat() {
 
                                                     </div>
 
-                                                    <h5 className=' mt-3 ms-3'>{item.username}</h5>
 
+                                                    <div className='online-offline'>
+
+                                                        <h5 className=' mt-3 ms-3 mb-0'>{item.username}</h5>
+
+                                                        <p className={OnlineUsers.includes(item._id) ? "text-success" : "text-danger"}>{OnlineUsers.includes(item._id) ? "Online" : "Offline"}</p>
+
+                                                    </div>
+
+
+                                                    
                                                 </div>
 
                                             ))

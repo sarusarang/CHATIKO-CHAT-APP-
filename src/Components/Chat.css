@@ -152,7 +152,12 @@
     border-radius: 6px;
 }
 
+.online-offline p{
 
+    margin-bottom: 0px !important;
+    margin-left: 1rem;
+
+}
 
 
 /* Responsive */

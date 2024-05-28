@@ -6,12 +6,16 @@ import { getUser } from '../Services/AllApi'
 import { Base_url } from '../Services/AllApi'
 import { toast } from 'sonner'
 import { edituser } from '../Services/AllApi'
+import { useDispatch } from 'react-redux'
+import { ProfileUpdate } from '../../REDUX STORE/User'
 
 
 function Editprofile({ editpro, chatdefault,mobview }) {
 
 
     const [userdata, setuserdata] = useState({})
+
+    const dispacth = useDispatch()
 
 
     // STATE FOR UPDATING THE USER DATA
@@ -125,10 +129,12 @@ function Editprofile({ editpro, chatdefault,mobview }) {
 
                         toast.success("Profile Updated")
 
+                       dispacth(ProfileUpdate(Date.now()))
+
                     }
                     else {
 
-                        toast.error(res.response.data)
+                        toast.error("ERROR")
 
                     }
 
@@ -152,7 +158,7 @@ function Editprofile({ editpro, chatdefault,mobview }) {
                     }
                     else {
 
-                        toast.error(res.response.data)
+                        toast.error("error")
 
                     }
 
@@ -164,7 +170,8 @@ function Editprofile({ editpro, chatdefault,mobview }) {
         }
         catch (err) {
 
-            toast.error(err)
+          
+            console.log(err);
 
         }
 
@@ -176,12 +183,12 @@ function Editprofile({ editpro, chatdefault,mobview }) {
 
         sessionStorage.removeItem("token")
         sessionStorage.removeItem("username")
+        sessionStorage.removeItem("_id")
         navigate('/')
 
     }
 
     
-
     return (
 
 

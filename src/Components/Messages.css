@@ -40,6 +40,26 @@
     color: #ffffff;
 }
 
+.delete-chat i{
+
+    cursor: pointer;
+}
+
+.modal-content{
+
+    background-color: #141414 !important;
+    box-shadow: none !important;
+
+}
+
+.modal-btn{
+
+    background-color: #141414 !important;
+    box-shadow: none !important;
+    font-weight: 900 !important;
+    color: #ccc !important;
+
+}
 
 /* Responsive */
 

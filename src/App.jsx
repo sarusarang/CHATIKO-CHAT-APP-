@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Auth from './Pages/Auth'
 import Dashboard from './Pages/Dashboard'
+import { io } from 'socket.io-client'
+import { Base_url } from './Services/AllApi'
 
 
 function App() {
-
 
 
   return (
@@ -15,7 +16,7 @@ function App() {
       <Routes>
 
         <Route path='/' element={<Auth />} />
-        
+
         <Route path='/dash' element={<Dashboard />} />
 
       </Routes>

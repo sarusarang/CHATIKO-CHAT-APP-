@@ -1,34 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import './Chatbox.css'
 import UserMessage from './UserMessage'
-import OtherMessage from './OtherMessage'
 import { Base_url } from '../Services/AllApi'
 import { sendchat } from '../Services/AllApi'
 import { getchats } from '../Services/AllApi'
-
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { RecivedChat } from '../../REDUX STORE/User'
+import { io } from 'socket.io-client'
+import { clearallchats } from '../Services/AllApi'
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 
 
 function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
 
+
+    const { UserClick, UserRecived, OnlineUsers, DeletedOne } = useSelector((state) => state.users)
+
+
+    const dispatch = useDispatch()
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
+    // TO GET SENDER ID AND RECIVER ID OF THE CHATS
     const sendid = sessionStorage.getItem("_id")
     const reciveid = chatdata._id
+    const sortid = [sendid, reciveid].sort()
 
-    const sortid =[sendid,reciveid].sort()
 
+    // NEW CHAT ID FOR ONE TO ONE CHAT
     const uniqueChatID = sortid.join('_')
 
-   
 
+    // SETTING CHAT INPUT FROM USER
     const [message, setMessage] = useState('');
 
-    // for fetching chat messages
-    const [mesghistory,setmesghistory] = useState([])
+
+
+    // for fetching chat messages from DB
+    const [mesghistory, setmesghistory] = useState([])
+
 
     const token = sessionStorage.getItem("token")
+    const [status, setstatus] = useState()
 
-    const [status,setstatus] = useState()
 
 
     // Fecth messages
@@ -42,9 +63,9 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
         const getmesg = async () => {
 
-         
 
-            const result = await getchats(uniqueChatID,auth)
+
+            const result = await getchats(uniqueChatID, auth)
 
             setmesghistory(result.data)
 
@@ -52,12 +73,37 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
         }
         getmesg()
 
+    }, [status, UserClick, UserRecived, DeletedOne])
 
-    },[status,setTimeout(() => {console.log();},1000)])
 
 
-    // sorted chat by time
-   const sorted= mesghistory.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+    useEffect(() => {
+
+        const socket = io(Base_url)
+
+
+        socket.on('newMessage', (message) => {
+
+            setmesghistory(...mesghistory.push(message))
+
+        })
+
+        return () => {
+
+            socket.disconnect();
+
+        };
+
+
+    }, [status, mesghistory])
+
+
+
+
+
+
+
 
 
     // geting new message from the input feild
@@ -84,10 +130,36 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
             setMessage('');
             setstatus(data)
 
+            dispatch(RecivedChat(result.data))
+
+
         }
 
     }
 
+    // Deleteing all Chats
+    const DeleteAllChats = async () => {
+
+        const auth = {
+
+            "Authorization": `Bearer ${token}`
+        }
+
+
+        const res = await clearallchats(uniqueChatID, auth)
+
+        if (res.status == 200) {
+
+            setstatus(res.data)
+            handleClose()
+
+        }
+
+
+    }
+
+    // sorted chat by time
+    const sorted = mesghistory.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
 
     return (
@@ -131,7 +203,7 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
                             <h5>{chatdata.username}</h5>
 
-                            <p className='text-success'>Online</p>
+                            <p className={OnlineUsers.includes(chatdata._id) ? "text-success" : "text-danger"}>{OnlineUsers.includes(chatdata._id) ? "Online" : "Offline"}</p>
 
 
                         </div>
@@ -142,7 +214,7 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
                     <div className='chat-dele'>
 
-                        <button><i class="fa-solid fa-trash-can"></i></button>
+                        <button onClick={handleShow}><i class="fa-solid fa-trash-can"></i></button>
 
                     </div>
 
@@ -151,30 +223,10 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
 
 
-
                 {/* CHAT AREA */}
                 <div className='chat-area w-100'>
 
-
-                    {
-
-                        sorted.map(item=>(
-
-                            item.sender == sendid?
-
-                            <UserMessage item={item.text} time={item.timestamp}/>
-
-                            :
-
-                            <OtherMessage item={item.text }  time={item.timestamp}/>
-
-                        ))
-                    }
-
-                    
-
-               
-                   
+                    <UserMessage item={sorted} sendid={sendid} />
 
 
                 </div>
@@ -200,9 +252,37 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
                 </div>
 
 
-
-
             </section>
+
+
+
+            <Modal
+
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                className='text-danger'
+
+            >
+
+
+                <Modal.Header closeButton>
+
+                </Modal.Header>
+                <Modal.Body className='text-center'>
+                    Are You Sure You Want To Delete All Message For Both...
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" className='modal-btn' onClick={handleClose}>
+                        No
+                    </Button>
+                    <Button variant="primary" className='modal-btn' onClick={DeleteAllChats}>Yes</Button>
+                </Modal.Footer>
+
+            </Modal>
 
 
 

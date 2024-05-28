@@ -1,59 +1,190 @@
 import React from 'react'
 import './Messages.css'
+import { useEffect, useRef, useState } from 'react'
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { Deleteonechat } from '../Services/AllApi';
+import { useDispatch } from 'react-redux';
+import { DeleteOne } from '../../REDUX STORE/User';
+
+function UserMessage({ item, sendid }) {
+
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
+  const dispatch = useDispatch()
+
+
+  const [deleteid, setdeleteid] = useState("")
+
+  const token = sessionStorage.getItem("token")
 
 
 
-function UserMessage({item,time}) {
+  // Scroll effect
+  const scroll = useRef()
+  const scroll2 = useRef()
 
+
+  useEffect(() => {
+
+    scroll.current?.scrollIntoView({ behavior: "smooth" });
+
+    scroll2.current?.scrollIntoView({ behavior: "smooth" });
+
+
+  }, [item])
+
+
+
+  // MODAL
+  const DeleteChat = (_id) => {
+
+    setdeleteid(_id)
+    handleShow()
+
+
+  }
 
   
-  const date =  new Date(time)
 
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
- 
+  // DELETE ONE CHAT
+  const deleteonechat = async () => {
 
-  const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+    const auth = {
+
+      "Authorization": `Bearer ${token}`
+    }
+
+    const res = await Deleteonechat(deleteid, auth)
+
+    if (res.status == 200) {
+
+      dispatch(DeleteOne(res.data))
+      handleClose()
+
+    }
+    else{
+
+      // console.log("error");
+    }
+
+  }
+
 
 
   return (
 
     <>
 
-      <section className='usermessages mt-2'>
+
+      {
+
+        item.map(mesg => (
+
+          mesg.sender == sendid ?
 
 
 
-        <div className='frnd-mesg bg ms-4'>
+            <section className='usermessages mt-2' ref={scroll}>
 
 
-         
-
-          <p className='mesg'>{item}</p>
+              <div className='frnd-mesg bg ms-4'>
 
 
-
-          <div className='d-flex justify-content-end'>
-
-            <p className='mb-0 mesg'>{formattedTime}</p>
-
-          </div>
+                <p className='mesg'>{mesg.text}</p>
 
 
 
-        </div>
+                <div className='d-flex justify-content-end delete-chat'>
+
+                  <p className='mb-0 mesg'>{new Date(mesg.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+
+                  <i class="fa-solid fa-trash-can text-danger mt-1 ms-2" onClick={() => { DeleteChat(mesg._id) }}></i>
+
+                </div>
 
 
-      </section>
+              </div>
 
+
+            </section>
+
+
+
+
+            :
+
+
+
+            <section className='othermessage mt-5' ref={scroll2}>
+
+
+              <div className='frnd-mesg ms-4'>
+
+
+                {/* <h5>SARANG</h5> */}
+
+                <p className='mesg'>{mesg.text}</p>
+
+
+                <div className='d-flex justify-content-end delete-chat'>
+
+                  <p className='mb-0 text-white mesg'>{new Date(mesg.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+
+                  <i class="fa-solid fa-trash-can text-danger mt-1 ms-2" onClick={() => { DeleteChat(mesg._id) }}></i>
+
+
+                </div>
+
+              </div>
+
+            </section>
+
+
+
+
+
+
+        ))
+
+      }
+
+
+      <Modal
+
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className='text-danger'
+
+      >
+
+
+        <Modal.Header closeButton>
+
+        </Modal.Header>
+        <Modal.Body className='text-center'>
+          Are You Sure You Want To Delete This Message For Both...
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" className='modal-btn' onClick={handleClose}>
+            No
+          </Button>
+          <Button variant="primary" className='modal-btn' onClick={deleteonechat}>Yes</Button>
+        </Modal.Footer>
+
+      </Modal>
 
 
     </>
-
-
-
-
-
 
   )
 
