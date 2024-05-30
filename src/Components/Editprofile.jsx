@@ -85,7 +85,7 @@ function Editprofile({ editpro, chatdefault,mobview }) {
         }
 
 
-    }, [updatedata.image])
+    },[updatedata.image])
 
 
 

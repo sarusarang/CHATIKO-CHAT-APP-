@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Deleteonechat } from '../Services/AllApi';
 import { useDispatch } from 'react-redux';
 import { DeleteOne } from '../../REDUX STORE/User';
+import { Base_url } from '../Services/AllApi';
 
 function UserMessage({ item, sendid }) {
 
@@ -27,8 +28,6 @@ function UserMessage({ item, sendid }) {
   // Scroll effect
   const scroll = useRef()
   const scroll2 = useRef()
-
-
   useEffect(() => {
 
     scroll.current?.scrollIntoView({ behavior: "smooth" });
@@ -40,20 +39,22 @@ function UserMessage({ item, sendid }) {
 
 
 
-  // MODAL
+
+
+
+
+  // MODAL OPEN
   const DeleteChat = (_id) => {
 
     setdeleteid(_id)
     handleShow()
 
-
   }
 
-  
+
 
   // DELETE ONE CHAT
   const deleteonechat = async () => {
-
 
     const auth = {
 
@@ -68,7 +69,7 @@ function UserMessage({ item, sendid }) {
       handleClose()
 
     }
-    else{
+    else {
 
       // console.log("error");
     }
@@ -76,6 +77,13 @@ function UserMessage({ item, sendid }) {
   }
 
 
+  // item.map(m=>{
+
+  //   console.log(m.text.length);
+
+  // })
+
+  console.log(item);
 
   return (
 
@@ -88,31 +96,60 @@ function UserMessage({ item, sendid }) {
 
           mesg.sender == sendid ?
 
+            <div>
+
+              <section className='usermessages mt-2' ref={scroll}>
 
 
-            <section className='usermessages mt-2' ref={scroll}>
+                <div className='frnd-mesg bg ms-4'>
 
 
-              <div className='frnd-mesg bg ms-4'>
+                  {
+                    mesg.text &&
 
 
-                <p className='mesg'>{mesg.text}</p>
+                    <p className='mesg'>{mesg.text}</p>
+
+
+                  }
 
 
 
-                <div className='d-flex justify-content-end delete-chat'>
 
-                  <p className='mb-0 mesg'>{new Date(mesg.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+                  <div className='d-flex justify-content-end delete-chat'>
 
-                  <i class="fa-solid fa-trash-can text-danger mt-1 ms-2" onClick={() => { DeleteChat(mesg._id) }}></i>
+                    <p className='mb-0 mesg'>{new Date(mesg.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+
+                    <i class="fa-solid fa-trash-can text-danger mt-1 ms-2" onClick={() => { DeleteChat(mesg._id) }}></i>
+
+                  </div>
+
+
+                </div>
+
+              </section>
+
+
+              {
+                mesg.image &&
+
+                <div className='d-flex justify-content-end'>
+
+                  <a href={`${Base_url}/uploads/${mesg.image}`} download className='d-flex justify-content-end'>
+
+                    <img src={`${Base_url}/uploads/${mesg.image}`} width={"80%"} className='img-fluid me-2 mt-3 send-img' alt="" />
+
+                  </a>
+
+
 
                 </div>
 
 
-              </div>
+              }
 
 
-            </section>
+            </div>
 
 
 
@@ -120,33 +157,52 @@ function UserMessage({ item, sendid }) {
             :
 
 
+            <div>
 
-            <section className='othermessage mt-5' ref={scroll2}>
-
-
-              <div className='frnd-mesg ms-4'>
+              <section className='othermessage mt-5' ref={scroll2}>
 
 
-                {/* <h5>SARANG</h5> */}
-
-                <p className='mesg'>{mesg.text}</p>
+                <div className='frnd-mesg ms-4'>
 
 
-                <div className='d-flex justify-content-end delete-chat'>
+                  {/* <h5>SARANG</h5> */}
 
-                  <p className='mb-0 text-white mesg'>{new Date(mesg.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+                  <p className='mesg'>{mesg.text}</p>
 
-                  <i class="fa-solid fa-trash-can text-danger mt-1 ms-2" onClick={() => { DeleteChat(mesg._id) }}></i>
+
+                  <div className='d-flex justify-content-end delete-chat'>
+
+                    <p className='mb-0 text-white mesg'>{new Date(mesg.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+
+                    <i class="fa-solid fa-trash-can text-danger mt-1 ms-2" onClick={() => { DeleteChat(mesg._id) }}></i>
+
+
+                  </div>
+
+                </div>
+
+              </section>
+
+              {
+                mesg.image &&
+
+
+                <div className='d-flex justify-content-start'>
+
+                  <a href={`${Base_url}/uploads/${mesg.image}`} download>
+
+                    <img src={`${Base_url}/uploads/${mesg.image}`} width={"80%"} className='img-fluid ms-3 mt-3 send-img' alt="" />
+
+
+                  </a>
 
 
                 </div>
 
-              </div>
 
-            </section>
+              }
 
-
-
+            </div>
 
 
 

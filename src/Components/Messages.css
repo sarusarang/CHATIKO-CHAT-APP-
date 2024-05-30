@@ -61,6 +61,13 @@
 
 }
 
+.send-img{
+
+    border-bottom:  2rem solid var(--bs-dark) !important;
+    border: 0.5rem solid var(--bs-dark);
+
+}
+
 /* Responsive */
 
 

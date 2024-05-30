@@ -11,6 +11,7 @@ import { io } from 'socket.io-client'
 import { clearallchats } from '../Services/AllApi'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { toast } from 'sonner'
 
 
 
@@ -46,6 +47,15 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
     // for fetching chat messages from DB
     const [mesghistory, setmesghistory] = useState([])
 
+    // FOR IMAGE FILE
+    const [imagefile, setimagefile] = useState("")
+
+    // image file status
+    const [imagestatus, setimagestatus] = useState(false)
+
+    // image preview
+    const [preview, setpreview] = useState("")
+
 
     const token = sessionStorage.getItem("token")
     const [status, setstatus] = useState()
@@ -78,6 +88,7 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
 
 
+    // TO PUSH SENDED MESG INSTANTLY TO SHOW THE MESG TO  RECIVER USER 
     useEffect(() => {
 
         const socket = io(Base_url)
@@ -85,7 +96,7 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
         socket.on('newMessage', (message) => {
 
-            setmesghistory(...mesghistory.push(message))
+            setmesghistory(prevMesgHistory => [...prevMesgHistory, message])
 
         })
 
@@ -101,6 +112,23 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
 
 
+    // TO CHECK THE IMAGE FILE TYPES
+    useEffect(() => {
+
+        if (imagefile.type == "image/jpg" || imagefile.type == "image/jpeg" || imagefile.type == "image/png") {
+
+            setpreview(URL.createObjectURL(imagefile))
+            setimagestatus(true)
+
+
+        } else {
+
+            setimagestatus(false)
+            setpreview("")
+        }
+
+
+    }, [imagefile])
 
 
 
@@ -111,29 +139,86 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
         setMessage(e.target.value)
 
+
     }
+
+
+
+    // get imgae files
+    const getimagefile = (e) => {
+
+
+        setimagefile(e.target.files[0])
+
+
+    }
+
+
+    console.log(imagefile);
+
+
+
 
 
     // message sending
     const sendMessage = async () => {
 
-        const auth = {
-            "Authorization": `Bearer ${token}`
+
+        const formdata = new FormData()
+
+        formdata.append("senderid", sendid)
+        formdata.append("receiverid", reciveid)
+        formdata.append("text", message)
+        formdata.append("chatid", uniqueChatID)
+        formdata.append("image", imagefile)
+
+
+        if (preview) {
+
+            const auth = {
+
+                "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${token}`
+
+            }
+
+            const res = await sendchat(formdata, auth)
+
+            if (res.status == 200) {
+
+                setimagefile('')
+
+            }
+
+
         }
 
-        const data = { senderid: sendid, receiverid: reciveid, text: message, chatid: uniqueChatID }
+        else {
 
-        const result = await sendchat(data, auth)
 
-        if (result.status == 200) {
+            const auth = {
 
-            setMessage('');
-            setstatus(data)
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
 
-            dispatch(RecivedChat(result.data))
+            const data = { senderid: sendid, receiverid: reciveid, text: message, chatid: uniqueChatID, image: "" }
 
+            const result = await sendchat(data, auth)
+
+            if (result.status == 200) {
+
+                setMessage('')
+                setstatus(data)
+                dispatch(RecivedChat(result.data))
+
+
+            }
 
         }
+
+
+
 
     }
 
@@ -226,6 +311,12 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
                 {/* CHAT AREA */}
                 <div className='chat-area w-100'>
 
+                    {
+                        preview &&
+
+                        <img src={preview} className='img-fluid' alt="" />
+                    }
+
                     <UserMessage item={sorted} sendid={sendid} />
 
 
@@ -237,11 +328,33 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
                     <form onSubmit={(e) => { e.preventDefault() }}>
 
-                        <div className='chat-input w-100'>
+                        <div className='chat-input w-100 d-flex'>
 
                             <input onChange={(e) => { getchat(e) }} value={message} type="text" placeholder='Type a Message' />
 
-                            <button onClick={sendMessage}><i className="fa-regular fa-paper-plane"></i></button>
+                            <div>
+
+                                <label>
+
+                                    <input type="file" onChange={(e) => { getimagefile(e) }} style={{ display: 'none' }} />
+
+                                    <i class="fa-regular fa-image"></i>
+
+
+                                </label>
+
+
+                            </div>
+
+                            {
+
+                                (message || imagefile) &&
+
+                                <button onClick={sendMessage}><i className="fa-regular fa-paper-plane ms-4 me-3"></i></button>
+
+                            }
+
+
 
                         </div>
 
