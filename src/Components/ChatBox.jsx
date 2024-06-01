@@ -11,6 +11,8 @@ import { io } from 'socket.io-client'
 import { clearallchats } from '../Services/AllApi'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
 
 
 
@@ -58,9 +60,18 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
 
     const token = sessionStorage.getItem("token")
+
+    //mesg sent status 
     const [status, setstatus] = useState()
+
+    // mesg delete status
     const [deletestatus, setdeletestatus] = useState("")
 
+    // emoji picker status
+    const [ispicker, setispicker] = useState(false)
+
+    // current emoji
+    const [currentemoji, setCurrentEmoji] = useState("")
 
 
     // Fecth messages
@@ -119,18 +130,18 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
     // TO SHOW THE USER AFTER DELETEING THE CHATS
     useEffect(() => {
 
-
         const socket = io(Base_url)
 
         socket.on('afterdelete', (newmessages) => {
 
-            if (newmessages.chatid == uniqueChatID) {
 
-                setmesghistory(newmessages)
+            if (newmessages[1] == uniqueChatID) {
+
+                setmesghistory(newmessages[0])
+                console.log("succes");
+
 
             }
-
-
 
         })
 
@@ -153,16 +164,21 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
         socket.on('onedelete', (newMessage) => {
 
 
+            newMessage.map(item => {
 
-            if (newMessage.chatid == uniqueChatID) {
+                if (item.chatid == uniqueChatID) {
 
-                setmesghistory(newMessage)
 
-            }
+                    setmesghistory(newMessage)
+
+                    console.log("success");
+
+                }
+
+            })
+
 
         })
-
-
 
         return () => {
 
@@ -175,6 +191,8 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
 
 
+
+    
 
     // TO CHECK THE IMAGE FILE TYPES
     useEffect(() => {
@@ -195,7 +213,20 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
     }, [imagefile])
 
 
+    // handle pick emoji 
+    const handleemoji = (e) => {
 
+        const sym = e.unified.split("_")
+
+        const arr = []
+
+        sym.forEach((item) => arr.push("0x" + item))
+
+        let emoji = String.fromCodePoint(...arr)
+
+        setMessage(prev => (prev + emoji))
+
+    }
 
 
     // geting new message from the input feild
@@ -203,8 +234,8 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
         setMessage(e.target.value)
 
-
     }
+
 
 
 
@@ -269,8 +300,10 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
             if (result.status == 200) {
 
                 setMessage('')
+                setCurrentEmoji("")
                 setstatus(data)
                 dispatch(RecivedChat(result.data))
+                setispicker(false)
 
 
             }
@@ -342,6 +375,7 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
 
 
+
                         {/* user profile and status */}
                         <div className='ms-2 mt-2 username'>
 
@@ -354,7 +388,11 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
                         </div>
 
 
+
+
                     </div>
+
+
 
 
                     <div className='chat-dele'>
@@ -383,6 +421,15 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
                 <div className=' w-100 chat-area2'>
 
 
+                    {/* emoji picker */}
+                    <div className={ispicker ? 'd-block' : 'd-none'}>
+
+                        <Picker data={data} onEmojiSelect={(e) => { handleemoji(e) }} />
+
+                    </div>
+
+
+
                     {
                         preview &&
 
@@ -395,11 +442,22 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
                     }
 
-                    <form onSubmit={(e) => { e.preventDefault() }}>
 
-                        <div className='chat-input w-100 d-flex'>
+
+
+                    <div className='chat-input w-100 d-flex'>
+
+                        {/* EMOJI */}
+                        <button className='me-2' onClick={() => { setispicker(!ispicker) }} ><i className="fa-regular fa-face-smile"></i></button>
+
+                        <form onSubmit={(e) => { e.preventDefault() }} className='d-flex w-100'>
+
+
+
 
                             <input onChange={(e) => { getchat(e) }} value={message} type="text" placeholder='Type a Message' />
+
+
 
                             <div>
 
@@ -415,26 +473,29 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
                             </div>
 
+
+
+
                             {
 
                                 (message || imagefile) &&
 
-                                <button onClick={sendMessage}><i className="fa-regular fa-paper-plane ms-4 me-3"></i></button>
+                                <button id="submitBtn" type='submit' onClick={sendMessage}><i className="fa-regular fa-paper-plane ms-4 me-3"></i></button>
 
                             }
 
+                        </form>
+
+                    </div>
 
 
-                        </div>
 
-
-                    </form>
 
 
                 </div>
 
 
-            </section>
+            </section >
 
 
 
