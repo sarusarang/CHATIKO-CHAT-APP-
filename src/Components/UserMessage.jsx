@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { DeleteOne } from '../../REDUX STORE/User';
 import { Base_url } from '../Services/AllApi';
 
-function UserMessage({ item, sendid }) {
+function UserMessage({ item, sendid , chatid }) {
 
 
   const [show, setShow] = useState(false);
@@ -40,9 +40,6 @@ function UserMessage({ item, sendid }) {
 
 
 
-
-
-
   // MODAL OPEN
   const DeleteChat = (_id) => {
 
@@ -61,7 +58,7 @@ function UserMessage({ item, sendid }) {
       "Authorization": `Bearer ${token}`
     }
 
-    const res = await Deleteonechat(deleteid, auth)
+    const res = await Deleteonechat(deleteid, auth ,chatid)
 
     if (res.status == 200) {
 
@@ -71,19 +68,10 @@ function UserMessage({ item, sendid }) {
     }
     else {
 
-      // console.log("error");
+      console.log("error");
     }
 
   }
-
-
-  // item.map(m=>{
-
-  //   console.log(m.text.length);
-
-  // })
-
-  console.log(item);
 
   return (
 
@@ -141,8 +129,6 @@ function UserMessage({ item, sendid }) {
 
                   </a>
 
-
-
                 </div>
 
 
@@ -183,6 +169,7 @@ function UserMessage({ item, sendid }) {
 
               </section>
 
+
               {
                 mesg.image &&
 
@@ -198,7 +185,6 @@ function UserMessage({ item, sendid }) {
 
 
                 </div>
-
 
               }
 

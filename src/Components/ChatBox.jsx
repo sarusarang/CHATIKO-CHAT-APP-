@@ -11,7 +11,7 @@ import { io } from 'socket.io-client'
 import { clearallchats } from '../Services/AllApi'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { toast } from 'sonner'
+
 
 
 
@@ -59,6 +59,7 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
     const token = sessionStorage.getItem("token")
     const [status, setstatus] = useState()
+    const [deletestatus, setdeletestatus] = useState("")
 
 
 
@@ -83,7 +84,7 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
         }
         getmesg()
 
-    }, [status, UserClick, UserRecived, DeletedOne])
+    }, [status, UserClick, UserRecived, DeletedOne, deletestatus])
 
 
 
@@ -96,7 +97,12 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
         socket.on('newMessage', (message) => {
 
-            setmesghistory(prevMesgHistory => [...prevMesgHistory, message])
+
+            if (message.chatid == uniqueChatID) {
+
+                setmesghistory(prevMesgHistory => [...prevMesgHistory, message])
+
+            }
 
         })
 
@@ -108,6 +114,64 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
 
     }, [status, mesghistory])
+
+
+    // TO SHOW THE USER AFTER DELETEING THE CHATS
+    useEffect(() => {
+
+
+        const socket = io(Base_url)
+
+        socket.on('afterdelete', (newmessages) => {
+
+            if (newmessages.chatid == uniqueChatID) {
+
+                setmesghistory(newmessages)
+
+            }
+
+
+
+        })
+
+        return () => {
+
+            socket.disconnect();
+
+        };
+
+    }, [deletestatus])
+
+
+
+
+    // TO SHOW USER AFTER DELETEING ONE MESG
+    useEffect(() => {
+
+        const socket = io(Base_url)
+
+        socket.on('onedelete', (newMessage) => {
+
+
+
+            if (newMessage.chatid == uniqueChatID) {
+
+                setmesghistory(newMessage)
+
+            }
+
+        })
+
+
+
+        return () => {
+
+            socket.disconnect();
+
+        };
+
+
+    }, [DeletedOne])
 
 
 
@@ -152,10 +216,6 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
 
     }
-
-
-    console.log(imagefile);
-
 
 
 
@@ -218,9 +278,9 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
         }
 
 
-
-
     }
+
+
 
     // Deleteing all Chats
     const DeleteAllChats = async () => {
@@ -235,7 +295,7 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
         if (res.status == 200) {
 
-            setstatus(res.data)
+            setdeletestatus(res.data)
             handleClose()
 
         }
@@ -311,13 +371,9 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
                 {/* CHAT AREA */}
                 <div className='chat-area w-100'>
 
-                    {
-                        preview &&
 
-                        <img src={preview} className='img-fluid' alt="" />
-                    }
 
-                    <UserMessage item={sorted} sendid={sendid} />
+                    <UserMessage item={sorted} sendid={sendid} chatid={uniqueChatID} />
 
 
                 </div>
@@ -325,6 +381,19 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
 
                 {/* CHAT INPUT AREA */}
                 <div className=' w-100 chat-area2'>
+
+
+                    {
+                        preview &&
+
+                        <div className='d-flex justify-content-center pt-4 pb-4' style={{ backgroundColor: '#000000d1' }}>
+
+                            <img src={preview} className='img-fluid' width={"50%"} alt="" />
+
+                        </div>
+
+
+                    }
 
                     <form onSubmit={(e) => { e.preventDefault() }}>
 

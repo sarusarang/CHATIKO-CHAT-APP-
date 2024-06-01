@@ -69,10 +69,9 @@ export const clearallchats = async (id, headers) => {
 
 
 // DELETE ONE CHAT
-export const Deleteonechat = async (id, headers) => {
+export const Deleteonechat = async (id, headers ,chatid) => {
    
-    console.log(id);
 
-    return await CommponApi("DELETE", `${Base_url}/deleteOneChats/${id}`,"", headers)
+    return await CommponApi("DELETE", `${Base_url}/deleteOneChats/${id}/${chatid}`,"", headers)
 
 }
