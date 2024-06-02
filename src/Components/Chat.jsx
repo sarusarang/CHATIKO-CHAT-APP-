@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux'
 
 function Chat() {
 
-    const { OnlineUsers, Profile } = useSelector((state) => state.users)
+    const { OnlineUsers, Profile , UserClick,UserRecived } = useSelector((state) => state.users)
 
 
     const dispatch = useDispatch()
@@ -104,7 +104,7 @@ function Chat() {
 
         }
 
-    }, [Profile])
+    }, [Profile,OnlineUsers,UserClick,UserRecived])
 
 
     // SEARCH 
