@@ -1,6 +1,6 @@
 import { CommponApi } from "./CommonApi";
 
-export const Base_url = "http://localhost:3000"
+export const Base_url = "https://chat-server-s6h8.onrender.com"
 
 
 
