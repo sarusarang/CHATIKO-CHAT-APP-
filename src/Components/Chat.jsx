@@ -298,7 +298,7 @@ function Chat() {
 
                                                                 :
 
-                                                                <p>{item.username[0]}</p>
+                                                                <img src="/Defualt-profile.jpg" className='img-fluid' alt="logo" />
 
                                                         }
 
