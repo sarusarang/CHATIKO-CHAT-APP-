@@ -363,7 +363,7 @@ function ChatBox({ chatdefault, chatstatus, mobview, chatdata }) {
                             {
                                 chatdata.image ?
 
-                                    <img src={`${Base_url}/uploads/${chatdata.image}`} className='img-fluid' alt="" />
+                                    <img src={`${Base_url}/uploads/${chatdata.image}`? `${Base_url}/uploads/${chatdata.image}` : "/Defualt-profile.jpg"} className='img-fluid' alt="" />
 
                                     :
 

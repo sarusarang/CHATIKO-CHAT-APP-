@@ -175,7 +175,7 @@ function Chat() {
 
                                         userdata.image ?
 
-                                            <img src={`${Base_url}/uploads/${userdata.image}`} className='img-fluid' alt="logo" />
+                                            <img src={`${Base_url}/uploads/${userdata.image}`? `${Base_url}/uploads/${userdata.image}` : "/Defualt-profile.jpg"} className='img-fluid' alt="logo" />
 
                                             :
 
@@ -233,7 +233,7 @@ function Chat() {
 
                                                             item.image ?
 
-                                                                <img src={`${Base_url}/uploads/${item.image}`} className='img-fluid' alt="" />
+                                                                <img src={`${Base_url}/uploads/${item.image}`? `${Base_url}/uploads/${item.image}` : "/Defualt-profile.jpg"} className='img-fluid' alt="" />
 
                                                                 :
 
@@ -294,7 +294,7 @@ function Chat() {
 
                                                             item.image ?
 
-                                                                <img src={`${Base_url}/uploads/${item.image}`} className='img-fluid' alt="" />
+                                                                <img src={`${Base_url}/uploads/${item.image}` ? `${Base_url}/uploads/${item.image}` : "/Defualt-profile.jpg"} className='img-fluid' alt="" />
 
                                                                 :
 
